@@ -12,9 +12,14 @@ public class Program
         builder.Services.AddControllers();
         
         builder.Services.AddBootstrap(builder.Environment);
-        
+
         var app = builder.Build();
-        
+                
+        if (app.Environment.IsDevelopment())
+        {
+            app.MapOpenApi();
+            
+        }
         app.MapControllers();
         
         app.Run();
