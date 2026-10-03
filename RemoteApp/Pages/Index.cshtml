@@ -1,0 +1,56 @@
+﻿@page "/"
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Process check</title>
+    <style>
+        body { font-family: sans-serif; margin: 2rem; }
+        #result.running { color: green; }
+        #result.stopped { color: red; }
+        #result.error   { color: darkorange; }
+    </style>
+</head>
+<body>
+<h1>Process check</h1>
+
+<form id="form">
+    <input id="name" placeholder="e.g. firefox" autofocus />
+    <button type="submit">Check</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+        const form = document.getElementById("form");
+        const input = document.getElementById("name");
+        const result = document.getElementById("result");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();   // stay on the page
+            const name = input.value.trim();
+            if (!name) return;
+
+            try {
+                const res = await fetch("/System/Process/" + encodeURIComponent(name));
+
+                if (!res.ok) {
+                    result.className = "error";
+                    result.textContent = "Invalid process name";
+                    return;
+                }
+
+                const data = await res.json();
+                result.className = data.running ? "running" : "stopped";
+                result.textContent = data.running
+                    ? `${data.process} is running (${data.instances} instance(s))`
+                    : `${data.process} is not running`;
+            } catch {
+                result.className = "error";
+                result.textContent = "Server not reachable";
+            }
+        });
+    </script>
+</body>
+</html>

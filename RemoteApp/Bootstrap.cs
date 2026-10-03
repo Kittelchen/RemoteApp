@@ -9,7 +9,8 @@ public static class Bootstrap
     {
         services.AddSingleton<ILogService, ConsoleLogService>();
         services.AddSingleton<ISystemService, SystemService>();
-        
+
+        services.AddRazorPages();
         return services;
     }
 }

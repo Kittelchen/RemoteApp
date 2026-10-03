@@ -1,0 +1,28 @@
+﻿@page "{name}"
+@using RemoteApp.Interfaces
+@inject ISystemService System
+
+@{
+    System.TryGetProcessStatus((string)RouteData.Values["name"]!, out var status);
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Process status</title>
+</head>
+<body>
+@if (status is null)
+{
+    <p>Invalid process name</p>
+}
+else
+{
+    <h1>@status.Process</h1>
+    <p style="color:@(status.Running ? "green" : "red")">
+        @(status.Running ? "Running" : "Not running") (@status.Instances)
+    </p>
+}
+</body>
+</html>
