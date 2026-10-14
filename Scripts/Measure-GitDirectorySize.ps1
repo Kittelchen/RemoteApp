@@ -1,5 +1,8 @@
 [CmdletBinding()]
-param()
+param(
+    [ValidateNotNullOrEmpty()]
+    [string]$OutputDirectory = 'C:\tmp'
+)
 
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
 $gitDirectory = Join-Path -Path $repositoryRoot -ChildPath '.git'
@@ -15,7 +18,6 @@ if ($null -ne $measuredSize.Sum) {
     $sizeInBytes = [long]$measuredSize.Sum
 }
 
-$outputDirectory = 'C:\tmp'
 if (-not (Test-Path -LiteralPath $outputDirectory -PathType Container)) {
     New-Item -ItemType Directory -Path $outputDirectory -Force -ErrorAction Stop | Out-Null
 }
