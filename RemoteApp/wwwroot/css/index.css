@@ -1,0 +1,51 @@
+:root {
+    color-scheme: light;
+    font-family: system-ui, sans-serif;
+    background: #f3f6fa;
+    color: #172033;
+}
+
+body {
+    display: grid;
+    min-height: 100vh;
+    margin: 0;
+    place-items: center;
+}
+
+main {
+    width: min(28rem, calc(100% - 3rem));
+    padding: 2.5rem;
+    border: 1px solid #e0e6ef;
+    border-radius: 1rem;
+    background: white;
+    box-shadow: 0 1rem 2.5rem #17203312;
+    text-align: center;
+}
+
+.indicator {
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 0 auto 1.25rem;
+    place-items: center;
+    border-radius: 50%;
+    background: #e8f7ee;
+    color: #188348;
+    font-size: 1.75rem;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+p {
+    margin: 0.75rem 0 0;
+    color: #536176;
+    line-height: 1.5;
+}
+
+.note {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+}
