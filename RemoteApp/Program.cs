@@ -22,6 +22,7 @@ public class Program
         }
         
         app.UseStaticFiles();
+        app.UseSession();
         app.MapControllers();
         app.MapRazorPages();
         

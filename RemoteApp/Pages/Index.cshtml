@@ -1,19 +1,41 @@
 ﻿@page "/"
+@model RemoteApp.Pages.Index
 
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RemoteApp – Verbindung</title>
+    <title>RemoteApp – Anmeldung</title>
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
 <main>
-    <div class="indicator" aria-hidden="true">✓</div>
-    <h1>Verbindung erfolgreich aufgebaut</h1>
-    <p>RemoteApp ist bereit.</p>
-    <p class="note">Dies ist eine Beispielanzeige. Eine tatsächliche Verbindung wird noch nicht geprüft.</p>
+    <h1>Anmeldung</h1>
+    <p>Melde dich bei RemoteApp an.</p>
+
+    <form method="post">
+        <div class="form-field">
+            <label asp-for="Login.Username">Benutzername</label>
+            <input asp-for="Login.Username" autocomplete="username" required>
+        </div>
+        <div class="form-field">
+            <label asp-for="Login.Password">Passwort</label>
+            <input asp-for="Login.Password" type="password" autocomplete="current-password" required>
+        </div>
+        <div class="form-field">
+            <label asp-for="Login.Token">Token</label>
+            <input asp-for="Login.Token" type="password" autocomplete="current-password" required>
+        </div>
+        <button type="submit">Anmelden</button>
+    </form>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <p class="error" role="alert">@Model.ErrorMessage</p>
+    }
+
+    <p class="note">Mockup: Benutzername <strong>user</strong>, Passwort <strong>1234</strong>.</p>
 </main>
 </body>
 </html>

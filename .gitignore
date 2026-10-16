@@ -4,3 +4,6 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 .idea/
+RemoteApp/App_Data/*.db
+RemoteApp/App_Data/*.db-shm
+RemoteApp/App_Data/*.db-wal
