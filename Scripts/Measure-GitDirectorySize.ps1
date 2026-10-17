@@ -1,11 +1,19 @@
 [CmdletBinding()]
 param(
     [ValidateNotNullOrEmpty()]
-    [string]$OutputDirectory = 'C:\tmp'
+    [string]$OutputDirectory = 'C:\tmp',
+    [ValidateNotNullOrEmpty()]
+    [string]$OutputFileName = 'git-size.txt',
+    [ValidateNotNullOrEmpty()]
+    [string]$TimestampFormat = 'dd.MM.yyyy HH:mm',
+    [ValidateNotNullOrEmpty()]
+    [string]$GitDirectory = '.git',
+    [ValidateNotNullOrEmpty()]
+    [string]$RepositoryRoot = $PSScriptRoot
+
 )
 
-$repositoryRoot = Split-Path -Parent $PSScriptRoot
-$gitDirectory = Join-Path -Path $repositoryRoot -ChildPath '.git'
+$gitDirectory = Join-Path -Path $RepositoryRoot -ChildPath $gitDirectory
 
 if (-not (Test-Path -LiteralPath $gitDirectory -PathType Container)) {
     throw "Git-Verzeichnis wurde nicht gefunden: $gitDirectory"
@@ -22,8 +30,8 @@ if (-not (Test-Path -LiteralPath $outputDirectory -PathType Container)) {
     New-Item -ItemType Directory -Path $outputDirectory -Force -ErrorAction Stop | Out-Null
 }
 
-$outputFile = Join-Path -Path $outputDirectory -ChildPath 'git-size.txt'
-$timestamp = Get-Date -Format 'dd.MM.yyyy HH:mm'
+$outputFile = Join-Path -Path $outputDirectory -ChildPath $outputFileName
+$timestamp = Get-Date -Format $timestampFormat
 $record = "$timestamp`t$sizeInBytes"
 
 if (Test-Path -LiteralPath $outputFile -PathType Leaf) {
